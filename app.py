@@ -21,7 +21,8 @@ if uploaded_file is not None:
     
     df["Date"] = pd.to_datetime(df["Date"])
     df = df.sort_values("Date")
-    df["Month"] = df["Date"].dt.to_period("M").astype(str)
+    # Mudança aqui: formato MM/YYYY ao invés de YYYY-MM
+    df["Month"] = df["Date"].dt.strftime("%m/%Y")
     month = st.sidebar.selectbox("Mês", df["Month"].unique())
     df_filtered = df[df["Month"] == month]
 
